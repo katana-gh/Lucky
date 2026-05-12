@@ -1,5 +1,5 @@
 
-#from card import Card
+from random import randint
 
 """
 a hand
@@ -54,7 +54,17 @@ class Player:
         self.hand.append(card)
         self.num_in_hand += 1
 
+# punishing the player
 
+    def is_max_hand(self):
+        if self.get_hand_count() == 11:
+            return True
+
+    def remove_random_card(self):
+        random_num = randint(0, self.get_hand_count() - 1)
+        removed_card = self.hand[random_num]
+        del self.hand[random_num]
+        return removed_card
 
 
 
