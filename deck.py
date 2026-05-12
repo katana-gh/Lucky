@@ -2,6 +2,7 @@
 import random
 from player import Player
 from card import Card
+from dialogue import *
 
 COLORS = ["blue", "green", "red", "yellow"]
 NUMS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -24,7 +25,7 @@ class Deck:
         for card_obj in card_pair_obj:
             self.deck.append(card_obj)
 
-        #self.deck += self.deck
+        self.deck += self.deck
         self.deck
 
 
@@ -51,4 +52,19 @@ class Deck:
 
     def display_deck_count(self):
         print(f" Remaining cards in deck: {len(self.deck)}")
+
+# punishing the player
+
+    def remove_cards(self, amount):
+        if amount == 0:
+            return
+        i = 0
+        while i < amount:
+            self.deck.pop()
+            print("\n" + shredded_from_deck[random.randint(0, len(shredded_from_deck) -1)])
+            i += 1
+        
+
+
+
 
