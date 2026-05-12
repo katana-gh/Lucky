@@ -4,6 +4,8 @@ from player import Player
 from turn import Turn
 from card import Card
 from sys import exit
+from random import randint
+from dialogue import *
 
 # game actions
 
@@ -20,12 +22,16 @@ def dealing(deck, player, other):
 
 
 def play(deck, player, dealer, turn):
-    print("Welcome to Lucky!")
-    print("Play all your cards before the deck reaches 0 to win")
+    print("Welcome to Lucky!\n")
+    print("Play all your cards before the deck reaches 0 to win\n")
 
     while True:
         # special conditions
         if turn.get_turn() == 0:
+            deck.shuffle()
+            deck.shuffle()
+            deck.shuffle()
+
             dealing(deck, player, dealer)
             
             turn.update_turn()
@@ -48,10 +54,10 @@ def play(deck, player, dealer, turn):
         player.display_hand()
 
 
-        action = input("Select a card: \ncolor number/draw/quit\n").lower()
+        action = input("Select a card: \n> type color number/draw/quit\n").lower()
         
         if action == "draw":
-            draw(deck, player)
+            draw(deck, player, turn_count)
             turn.update_turn()
             continue
         elif action == "quit":
@@ -74,14 +80,19 @@ def play(deck, player, dealer, turn):
          continue
 
 
-
-
-
-
-
-
-def draw(deck, player):
+def draw(deck, player, turn):
     deck.draw(player)
+    # punishing the player
+    if turn.get_turn() >= 5 and turn.get_turn() < 10:
+        deck.remove_cards(1)
+    elif turn.get_turn() >= 10:
+        random_amount = randint(1, 2)
+        deck.remove_cards(random_amount)
+
+    if player.is_max_hand():
+        print("\n" + shredded_from_hand[randint(0, len(shredded_from_hand) - 1)])
+        missing_card = player.remove_random_card()
+        print(f"{missing_card.get_card()} has been removed from hand")
 
 # game status
 
@@ -90,15 +101,9 @@ def display_current_card(dealer):
     print(f"Dealer: {current_card}")
 
 
-
-def uno(player):
-    pass
-
-
 def is_victory(player):
     if player.get_hand_count() == 0:
-        return True
-    
+        return True    
     return False
 
 def is_defeat(deck, player):
