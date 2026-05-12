@@ -17,11 +17,17 @@ class Player:
     def get_hand(self):
         return self.hand
 
+
+    def get_hand_count(self):
+        return len(self.hand)
+
+
     def display_hand(self):
         display_cards = []
         for card in self.hand:
             display_cards.append(card.get_card())
-        print(display_cards)
+
+        print(" ".join(display_cards))
 
 # playing card
 
@@ -29,6 +35,7 @@ class Player:
         for card in self.hand:
             if card.get_card() == player_card.lower():
                 return True
+        
         return False
 
     def played_card(self, player_card):

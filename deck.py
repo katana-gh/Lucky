@@ -10,7 +10,8 @@ class Deck:
     def __init__(self):
         self.deck = []
 
-
+    def get_deck_count(self):
+        return len(self.deck)
 
 
     def make_deck(self):
@@ -43,12 +44,11 @@ class Deck:
         if len(self.deck) != 0:
             top_card = self.deck.pop()
             
-
             player_hand.update_hand(top_card)
             player_hand.num_in_hand += 1
             
             return top_card
 
     def display_deck_count(self):
-        print(len(self.deck))
+        print(f" Remaining cards in deck: {len(self.deck)}")
 
