@@ -22,8 +22,21 @@ def dealing(deck, player, other):
 
 
 def play(deck, player, dealer, turn):
+    global select_mode
     print("Welcome to Lucky!\n")
     print("Play all your cards before the deck reaches 0 to win\n")
+
+    while True:
+        try:
+            select_mode = input("Please enter a mode:\n> easy/medium/hard\n").lower()
+        except KeyboardInterrupt:
+            exit()
+        if select_mode == mode(select_mode):
+            break
+        elif select_mode == "quit":
+            exit()
+        else:
+            print("invalid mode")
 
     while True:
         # special conditions
@@ -53,8 +66,10 @@ def play(deck, player, dealer, turn):
         print()
         player.display_hand()
 
-
-        action = input("Select a card: \n> type color number/draw/quit\n").lower()
+        try:
+            action = input("Select a card: \n> type color number/draw/quit\n").lower()
+        except KeyboardInterrupt:
+            exit()
         
         if action == "draw":
             draw(deck, player, turn_count)
@@ -81,7 +96,13 @@ def play(deck, player, dealer, turn):
 
 
 def draw(deck, player, turn):
+    if player.is_max_hand():
+        print("\n" + shredded_from_hand[randint(0, len(shredded_from_hand) - 1)])
+        missing_card = player.remove_random_card()
+        print(f"\n{missing_card.get_card()} has been removed from hand")
+    
     deck.draw(player)
+    
     # punishing the player
     if turn.get_turn() >= 5 and turn.get_turn() < 10:
         deck.remove_cards(1)
@@ -89,10 +110,7 @@ def draw(deck, player, turn):
         random_amount = randint(1, 2)
         deck.remove_cards(random_amount)
 
-    if player.is_max_hand():
-        print("\n" + shredded_from_hand[randint(0, len(shredded_from_hand) - 1)])
-        missing_card = player.remove_random_card()
-        print(f"{missing_card.get_card()} has been removed from hand")
+    
 
 # game status
 
@@ -118,11 +136,20 @@ def report(deck, player, dealer, turn):
         outcome = "DEFEAT..."
     print("CREDITS")
     print(outcome)
+    print(f"Difficulty: {mode(select_mode)}")
     print(f" You played {dealer.get_hand_count() - 1} cards")
     print(f"Turns taken {turn.get_turn()}")
     print(f"Cards in deck remaining {deck.get_deck_count()}")
     print()
     print("Created by: Katana")
+
+def mode(user_mode):
+    if user_mode == "easy":
+        return "easy"
+    elif user_mode == "medium":
+        return "medium"
+    elif user_mode == "hard":
+        return "hard"
 
 
 # initialize objects
