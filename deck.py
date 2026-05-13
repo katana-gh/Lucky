@@ -58,6 +58,9 @@ class Deck:
     def remove_cards(self, amount):
         if amount == 0:
             return
+        if amount > self.get_deck_count():
+            self.deck = []
+            return self.deck
         i = 0
         while i < amount:
             self.deck.pop()
