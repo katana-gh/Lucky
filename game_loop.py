@@ -12,6 +12,39 @@ from time import sleep
 
 # game actions
 
+def help():
+    is_continue = True
+    while is_continue:
+        update_screen()
+        print("How to Play")
+        print()
+        print("Match the dealer's card until 0 cards remain in hand.")
+        print("Hand capacity is 10 cards.")
+        print("When drawing a card while at maximum hand capacity, a random card is shredded and replaced.")
+        print("If the deck reaches 0 before you do, you lose.") 
+        print()
+        print("Drawing Punishment")
+        print()
+        print("A draw punishment causes a random number of cards to be shredded from the deck when a card is drawn.")
+        print("A draw punishment is activated by: DRAW CAUTION, and lasts until a new punishment replaces the old draw punishment.")
+        print("Each difficulty has a draw punishment.")
+        print("The harder the difficulty, the sooner the draw punishment and larger the amount of cards shredded.")
+        print()
+        print("type help to open the help menu again.")
+        print()
+        
+        try:
+            answer = input("Exit help menu?\n> type yes/no").lower()
+        except KeyboardInterrupt:
+            exit()
+        if answer == "yes":
+            break
+        elif answer == "no":
+            continue
+        else:
+            print("invalid action")
+
+
 def dealing(deck, player, other):
     counter = 0
     while counter <= 6:
@@ -27,6 +60,7 @@ def dealing(deck, player, other):
 
 def play(deck, player, dealer, turn):
     global select_mode
+    help()
     print("Welcome to Lucky!\n")
     print("Play all your cards before the deck reaches 0 to win\n")
     sleep(2)
@@ -41,6 +75,9 @@ def play(deck, player, dealer, turn):
             break
         elif select_mode == "quit":
             exit()
+        elif select_mode == "help":
+            help()
+            
         else:
             print("invalid mode")
 
@@ -100,6 +137,8 @@ def play(deck, player, dealer, turn):
             continue
         elif action == "quit":
             exit()
+        elif action == "help":
+            help()
         elif player.is_card_in_hand(action):
                 card_obj = player.played_card(action)
                 
