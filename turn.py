@@ -19,8 +19,5 @@ class Turn:
         print(f"Turn: {self.turn}")
 
 
-    def reset(self):
-        self.turn = 0
-
-
+    
 

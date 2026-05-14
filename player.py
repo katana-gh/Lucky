@@ -67,7 +67,6 @@ class Player:
         return removed_card
 
 
-
-
+    
 
 
