@@ -34,7 +34,7 @@ def play(deck, player, dealer, turn):
     while True:
         update_screen()
         try:
-            select_mode = input("Please enter a mode:\n> easy/medium/hard").lower()
+            select_mode = input("enter a mode:\n> easy/medium/hard").lower()
         except KeyboardInterrupt:
             exit()
         if select_mode == mode(select_mode):
@@ -164,6 +164,10 @@ def report(deck, player, dealer, turn):
     print()
     print("Created by: Katana")
 
+
+
+
+
 # modes
 
 def mode(user_mode):
@@ -255,4 +259,7 @@ dealer = Player()
 turn_count = Turn()
 
 play_game = play(deck, player, dealer, turn_count)
+
+
+
 
